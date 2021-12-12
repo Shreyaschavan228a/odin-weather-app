@@ -1,34 +1,46 @@
 body {
-    background-image: linear-gradient(-45deg, #6d98f5, #3d3dff);
+    background-image: url("./background.jpg");
     font-size: 20px;
+    color:white;
 }
 
 .name-form{
     display: flex;
-    flex-flow: row wrap;
-    border:#2727e2 2px solid;
-    background-color: #6191f7;
-    width: 30vw;
+    flex-flow: row;
+    background-color: #8b94b9;
+    border: #292950;
+    width: 150px;
     margin:auto;
+    padding: 0;
+    border-radius: 5%;
+    position: fixed;
+    top: 1%;
+    left: 90%;
 }
 
 .name-form * {
-    margin: 2% 5% 2% 5%;
+    margin: 2% auto 2% auto;
 }
-
-label {
-    width: 30%;
-    margin-right: 0;
-    padding-top: 3%;
+#submit-btn {
+    height: 100%;
+    width: auto;
 }
 
 input {
-    width: 50%;
+    width: 80%;
     padding: 3% 0 3% 3%;
     font-size: 15px;
-    margin-left: 0;
+    margin: 0;
+    height: 100%;
+    color: black;
+    background-color: inherit;
+    border: none;
 }
 
+input:active {
+    border: none;
+}
+/*
 #submit-btn {
     width: 20%;
     padding: 3%;
@@ -36,20 +48,19 @@ input {
     background-color: #467ef7;
     font-size: 15px;
     border: black;
-}
+}*/
 
 .weather-div{
-    border: black 1px solid;
-    background-color: white;
+    background: transparent;
     align-items: center;
     width: 30vw;
-    margin: auto;
     display: grid;
     grid-template-areas: "h1 h1"
                          "desc temp"
                          "desc temp"
                          "humidity temp";
-    padding: 15px;
+    padding: 0;
+    margin: 10% auto auto 10%;
 }
 .weather-div * {
     padding: 5px;
@@ -72,5 +83,12 @@ input {
 }
 .hidden-div {
     display: hidden;
+}
+
+#source{
+    position:fixed;
+    right: 0;
+    bottom: 0;
+    font-size: 15px;
 }
 

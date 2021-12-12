@@ -2,16 +2,21 @@ const cityInput = document.querySelector('input');
 const formDiv = document.querySelector('.name-form');
 
 
-const submitBtn = document.querySelector('button');
+const submitBtn = document.querySelector('#submit-btn');
 
 submitBtn.addEventListener('click',()=>{
     let cityName = cityInput.value
     getWeather(cityName);
+    cityInput.value = '';
 })
+
+window.onload = () =>{
+    getWeather('Nashik');
+};
 
 
 function getWeather(cityName){
-    let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=0ca4e0d3541309da22200a374c79b9eb`;
+    let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=0ca4e0d3541309da22200a374c79b9eb&units=metric`;
     fetch(url, {mode: 'cors'})
     .then((response)=>{
         return response.json();
@@ -19,6 +24,9 @@ function getWeather(cityName){
     .then((weatherJson)=>{
         console.log(weatherJson);
         showWeather(weatherJson);
+    })
+    .catch((err)=>{
+        alert(`Error: Invalid city name`);
     })
 }
 
@@ -28,6 +36,7 @@ function showWeather(weatherJson){
         document.body.querySelector('.weather-div').remove();
     }
 
+    let maindesc = String(weatherJson.weather[0].main);
     let desc = String(weatherJson.weather[0].description);
     let cityName = String(weatherJson.name);
     let humidity = String(weatherJson.main.humidity);
@@ -44,13 +53,13 @@ function showWeather(weatherJson){
         formDiv.classList.add('hidden-div');
     }
     
-    let weatherDiv = getWeatherDiv(desc, cityName, humidity, currentTempC, maxTempC, minTempC, wIcon, country);
+    let weatherDiv = getWeatherDiv(maindesc, desc, cityName, humidity, currentTempC, maxTempC, minTempC, wIcon, country);
 
     document.body.append(weatherDiv);
 }
 
 
-function getWeatherDiv(desc, cityName, humidity, currentTemp, maxTemp, minTemp, wIcon, country){
+function getWeatherDiv(maindesc, desc, cityName, humidity, currentTemp, maxTemp, minTemp, wIcon, country){
     let weatherDiv = document.createElement('div');
     weatherDiv.classList.add('weather-div');
 
@@ -65,7 +74,7 @@ function getWeatherDiv(desc, cityName, humidity, currentTemp, maxTemp, minTemp, 
     let descDiv = document.createElement('div');
     descDiv.classList.add('desc-div');
     let descP = document.createElement('p');
-    descP.textContent = desc;
+    descP.textContent = `${maindesc}, ${desc}`;
     let weatherIcon = new Image();
     weatherIcon.src = `http://openweathermap.org/img/wn/${wIcon}@2x.png`
     weatherIcon.style.cssText = 'width: 100px; height: auto';
@@ -86,3 +95,4 @@ function getWeatherDiv(desc, cityName, humidity, currentTemp, maxTemp, minTemp, 
     weatherDiv.append(cityNameH, descDiv, tempDiv, humidityP);
     return weatherDiv;
 }
+
