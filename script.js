@@ -1,33 +1,35 @@
-const cityInput = document.querySelector('input');
+const cityInput = document.querySelector('#city');
 const formDiv = document.querySelector('.name-form');
 
 
 const submitBtn = document.querySelector('#submit-btn');
 
-submitBtn.addEventListener('click',()=>{
-    let cityName = cityInput.value
-    getWeather(cityName);
-    cityInput.value = '';
-})
+
+
+cityInput.addEventListener('keydown', (e)=>{
+    if(e.code == "Enter" && cityInput.value != ''){
+        getWeather(cityInput.value);
+    }
+});
 
 window.onload = () =>{
     getWeather('Nashik');
 };
 
 
-function getWeather(cityName){
+async function getWeather(cityName){
     let url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=0ca4e0d3541309da22200a374c79b9eb&units=metric`;
-    fetch(url, {mode: 'cors'})
-    .then((response)=>{
-        return response.json();
-    })
-    .then((weatherJson)=>{
+    let weather = await fetch(url, {mode: 'cors'});
+
+    let weatherJson = await weather.json();
+    
+    if(weatherJson.cod === '404'){
+        alert('Invalid city name');
+    }
+    else{
         console.log(weatherJson);
         showWeather(weatherJson);
-    })
-    .catch((err)=>{
-        alert(`Error: Invalid city name`);
-    })
+    }
 }
 
 

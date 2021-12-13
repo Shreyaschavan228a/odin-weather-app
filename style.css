@@ -40,15 +40,7 @@ input {
 input:active {
     border: none;
 }
-/*
-#submit-btn {
-    width: 20%;
-    padding: 3%;
-    color:aliceblue;
-    background-color: #467ef7;
-    font-size: 15px;
-    border: black;
-}*/
+
 
 .weather-div{
     background: transparent;
